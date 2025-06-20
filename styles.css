@@ -1,8 +1,17 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: pink;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .scene {
     width: 200px;
     height: 200px;
     perspective: 500px;
     margin: 50px auto;
+    padding-top: 50px;
 }
 #cube {
     width: 100%;
