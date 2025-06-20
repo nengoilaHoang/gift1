@@ -4,13 +4,13 @@ let isDragging = false;
 let startRoteation = { x: 0, y: 0 };
 let startX, startY;
 
-scene.addEventListener('mousedown', (e) => {
+function startDrag(e){
     isDragging = true;
     startX = e.clientX;
     startY = e.clientY;
-});
+}
 
-document.addEventListener('mousemove', (e) => {
+function moveDrag(e) {
     if (!isDragging) return;
     const deltaX = e.clientX - startX;
     const deltaY = e.clientY - startY;
@@ -20,8 +20,19 @@ document.addEventListener('mousemove', (e) => {
     startRoteation.x += rotateX;
     startRoteation.y += rotateY;
     cube.style.transform = `rotateX(${startRoteation.x}deg) rotateY(${startRoteation.y}deg)`;
-});
+}
 
-document.addEventListener('mouseup', () => {
+function stopDrag() {
     isDragging = false;
-});
+}
+
+scene.addEventListener('mousedown', startDrag);
+
+document.addEventListener('mousemove', moveDrag);
+
+document.addEventListener('mouseup', stopDrag);
+
+// Thêm sự kiện cho touch
+scene.addEventListener('touchstart', startDrag, { passive: false });
+document.addEventListener('touchmove', moveDrag, { passive: false });
+document.addEventListener('touchend', stopDrag);    
