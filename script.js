@@ -13,8 +13,10 @@ function startDrag(e){
 
 function moveDrag(e) {
     if (!isDragging) return;
-    const deltaX = e.clientX !== undefined ? e.clientX : e.touches[0].clientX - startX;
-    const deltaY = e.clientY !== undefined ? e.clientY : e.touches[0].clientY - startY;
+    const clientX = e.clientX !== undefined ? e.clientX : e.touches[0].clientX;
+    const clientY = e.clientY !== undefined ? e.clientY : e.touches[0].clientY;
+    const deltaX = clientX - startX;
+    const deltaY = clientY - startY;
     // Điều chỉnh tốc độ xoay (giảm tốc độ để tránh xoay quá nhanh)
     const rotateY = deltaX * 0.02;
     const rotateX = deltaY * -0.02; // Đảo dấu để xoay tự nhiên hơn
