@@ -6,20 +6,22 @@ let startX, startY;
 
 function startDrag(e){
     isDragging = true;
-    startX = e.clientX;
-    startY = e.clientY;
+    startX = e.clientX !== undefined ? e.clientX : e.touches[0].clientX;
+    startY = e.clientY !== undefined ? e.clientY : e.touches[0].clientY;
+    e.preventDefault(); // Ngăn chặn hành động mặc định để tránh cuộn trang
 }
 
 function moveDrag(e) {
     if (!isDragging) return;
-    const deltaX = e.clientX - startX;
-    const deltaY = e.clientY - startY;
+    const deltaX = e.clientX !== undefined ? e.clientX : e.touches[0].clientX - startX;
+    const deltaY = e.clientY !== undefined ? e.clientY : e.touches[0].clientY - startY;
     // Điều chỉnh tốc độ xoay (giảm tốc độ để tránh xoay quá nhanh)
     const rotateY = deltaX * 0.02;
     const rotateX = deltaY * -0.02; // Đảo dấu để xoay tự nhiên hơn
     startRoteation.x += rotateX;
     startRoteation.y += rotateY;
     cube.style.transform = `rotateX(${startRoteation.x}deg) rotateY(${startRoteation.y}deg)`;
+    e.preventDefault(); // Ngăn chặn hành động mặc định để tránh cuộn trang
 }
 
 function stopDrag() {
